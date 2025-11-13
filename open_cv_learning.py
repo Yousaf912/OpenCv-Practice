@@ -106,19 +106,44 @@ image = cv.imread('download.jpg') #it will load the pic
 
 
 # --------------------------------------- Draw Rectengule -------------------------------
-user_input = input('Enter your image path \n')
+# user_input = input('Enter your image path \n')
 
-if user_input is not None:
-    load_image = cv.imread(user_input)
+# if user_input is not None:
+#     load_image = cv.imread(user_input)
 
-    pt1 = (5,80)
-    pt2 =(80,100)
-    color =(0,0,255)
-    thickness = 2
-    cv.rectangle(load_image,pt1,pt2,color,thickness)
-    cv.imshow('rectangle',load_image)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
+#     pt1 = (5,80)
+#     pt2 =(80,100)
+#     color =(0,0,255)
+#     thickness = 2
+#     cv.rectangle(load_image,pt1,pt2,color,thickness)
+#     cv.imshow('rectangle',load_image)
+#     cv.waitKey(0)
+#     cv.destroyAllWindows()
+
+# ---------------------------------- Work On Video --------------------------------
+#  if we are using webCame for capturing video then we will pass "0" in source if we are using other outer sourse then we will use "1"
+
+
+cap = cv.VideoCapture(0)
+while True :
+    ret,frame = cap.read()
+    if not ret:
+      print('Could not read Frame')
+      break
+    cv.imshow('WebCame Feed',frame)
+    if cv.waitKey(1) & 0xFF == ord('q'):
+       print('Quetting ----')
+       break
+cap.release()
+cv.destroyAllWindows()
+
+
+
+
+
+
+
+
 
 
 
