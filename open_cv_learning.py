@@ -1,4 +1,5 @@
 import cv2 as cv
+import numpy as np
 
 
 # ------------------------------------------------- Reading and Displaying an Image -------------------------------------------------
@@ -124,23 +125,82 @@ image = cv.imread('download.jpg') #it will load the pic
 #  if we are using webCame for capturing video then we will pass "0" in source if we are using other outer sourse then we will use "1"
 
 
-cap = cv.VideoCapture(0)
-while True :
-    ret,frame = cap.read()
-    if not ret:
-      print('Could not read Frame')
-      break
-    cv.imshow('WebCame Feed',frame)
-    if cv.waitKey(1) & 0xFF == ord('q'):
-       print('Quetting ----')
-       break
-cap.release()
+# cap = cv.VideoCapture(0)
+# while True :
+#     ret,frame = cap.read()
+#     if not ret:
+#       print('Could not read Frame')
+#       break
+#     cv.imshow('WebCame Feed',frame)
+#     if cv.waitKey(1) & 0xFF == ord('q'):
+#        print('Quetting ----')
+#        break
+# cap.release()
+# cv.destroyAllWindows()
+
+
+
+# ----------------------------------------------- Image Filtering Process --------------------------------------
+"""
+Blurring (or smoothing) is an image processing technique used to:
+          1) Reduce image noise and detail.
+          2) Remove unwanted high-frequency content (edges, textures).
+          3) Prepare an image for further processing (like edge detection or thresholding).
+"""
+
+# ----------------------------- GaussianBlur -----------------------------------
+"""
+In this every pixle will be added then take its averege then it will be replaced 
+with that pixcle we want to blur it , it will not blur the surrounding pixcle 
+"""
+
+# Syntex :
+"""
+blurred_image = cv.GaussianBlur(image,(kernel_size_x,kernel_size_Y),sigma)
+         1) in kernel we will put only odd values not even values
+         2) sigma will be detect how much strong the blur will be if we will
+            pass "0" then it will be detect by itself
+         3)     (kernel_size_x,Kernel_size_y)
+                     (3,3) ------> Light blur
+                     (9,9) ------> Strong Blur
+                     (21,21) ----> Super Blur 
+
+"""
+
+# blurred_image = cv.GaussianBlur(image,(21,21),10)
+
+# cv.imshow('Original Image',image)
+# cv.imshow('Blured Image',blurred_image)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+
+
+
+# ----------------------------------------- Median Blur ------------------------------------
+
+# blur_original = cv.imread('boy.png')
+
+# blured= cv.medianBlur(blur_original,5)
+# cv.imshow('Original image',blur_original)
+# cv.imshow('Blured Image',blured)
+# cv.waitKey(0)
+# cv.destroyAllWindows()
+
+# --------------------------------------- Sharpness Of Pic -----------------------------
+
+pic_for_sharped = cv.imread('girl2.jpg')
+
+kernel = np.array([[
+     0,-1,0],
+    [-1,5,-1],
+    [0,-1,0] 
+    ])
+
+sharped_pic = cv.filter2D(pic_for_sharped,-99,kernel)
+cv.imshow('Original Pic ',pic_for_sharped)
+cv.imshow('sharped Pic',sharped_pic)
+cv.waitKey(0)
 cv.destroyAllWindows()
-
-
-
-
-
 
 
 
